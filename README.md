@@ -12,4 +12,4 @@ Make sure that user has authorised the `user_photos` permission.
 
 ## License & Notes
 
-The BSD License - Copyright (c) 2012 [Gajus Kuizinas](http://anuary.com/gajus).
+The BSD License - Copyright (c) 2012 Gajus Kuizinas.
