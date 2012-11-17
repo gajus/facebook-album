@@ -82,7 +82,7 @@ if(!empty($_POST['ay']['src_url']))
 	<div class="button-upload-photo">Upload photo</div>
 
 	<div class="authorship">
-		This is a demo of the <a href="https://github.com/anuary/ay-histogram" target="_blank">Facebook photo upload</a> plugin. This script has been developed by <a href="http://anuary.com/gajus" target="_blank">Gajus Kuizinas</a>.
+		This is a demo of the <a href="https://github.com/anuary/ay-histogram" target="_blank">Facebook photo upload</a> plugin.
 	</div>
 </body>
 </html>
