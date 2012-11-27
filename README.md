@@ -2,7 +2,7 @@
 
 [Demonstration](https://dev.anuary.com/172f847c-726e-5965-b785-ecff3d69b3f9/). Note that demonstration does not actually upload any files. However, the PHP files have all of the logic written down. It is up to you to issue an XHR request to the PHP script to initiate the uploading to the server.
 
-![screenshot.png]
+![Screenshot](https://raw.github.com/gajus/facebook-album/master/screenshot.png)
 
 ## Usage
 
