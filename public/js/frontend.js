@@ -2,27 +2,29 @@ $(function(){
 	var photo	= $('#photo');
 
 	$('.button-upload-photo').on('click', function(){
-		FB.login(function(r)
-		{
-			if(r.authResponse !== null)
+		$.ayFbAlbum({callback: function(r){
+			if(!r)
 			{
-				$.ayFbAlbum(function(src_url){
-					if(src_url)
-					{
-						var image	= new Image();
-						
-						image.onload	= function(){
-							photo.show().css({width: this.width, height: this.height, backgroundImage: 'url(\'' + src_url + '\')'});
-							
-							// To actually upload the file, you'd need to issue an XHR request with the URL to the source image.
-							// The PHP file contains all the logic needed to upload the file.
-						};
-						
-						image.src	= src_url;
-					}
-				});
+				// user did not select anything
 			}
-		}, {scope: 'user_photos' });
+			else if(r.url)
+			{
+				var image	= new Image();
+						
+				image.onload	= function(){
+					photo.show().css({width: this.width, height: this.height, backgroundImage: 'url(\'' + this.src + '\')'});
+					
+					// To actually upload the file, you'd need to issue an XHR request with the URL to the source image.
+					// The PHP file contains all the logic needed to upload the file.
+				};
+				
+				image.src	= r.url;
+			}
+			else if(r.error)
+			{
+				console.log(r.error);
+			}
+		}});
 	});
 });
 
