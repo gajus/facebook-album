@@ -4,10 +4,24 @@
 
 ## Usage
 
-Make sure that user has authorised the `user_photos` permission.
+The script will automatically make sure that user is authorised with the required permissions (namely, `user_photos`).
 
-	$.ayFbAlbum(function(src_url){
-		// Do whatever you need with the URL of the full-size photo.
+	$.ayFbAlbum({callback: function(r){
+		if(!r)
+		{
+			// User did not select any photo.
+		}
+		else if(r.url)
+		{
+			// Url of the selected photo.
+		}
+		else if(r.error)
+		{
+			// Error object containing the error.code and error.message.
+		}
+	},
+		loader: $('#your-loader'), // Optional. jQuery reference to the element that will be displayed when the script is loading (XHR requestss, etc.).
+		debug: false // Optional. Allows to track (console.) script activity.
 	});
 
 ## License & Notes
