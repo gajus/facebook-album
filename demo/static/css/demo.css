@@ -1,0 +1,23 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font: normal 12px/20px monospace, 'Lucida Grande', arial, Sans-Serif;
+}
+.authorship {
+  margin: 20px;
+}
+.button-upload-photo {
+  color: #f00;
+  margin: 20px;
+  cursor: pointer;
+}
+.button-upload-photo:hover {
+  text-decoration: underline;
+}
+#photo {
+  display: none;
+  margin: 20px;
+  background: #f2f2f2;
+  border: 1px solid #e2e2e2;
+}

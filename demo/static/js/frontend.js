@@ -2,13 +2,10 @@ $(function(){
 	var photo	= $('#photo');
 
 	$('.button-upload-photo').on('click', function(){
-		$.ayFbAlbum({callback: function(r){
-			if(!r)
-			{
+		$.gajus.falbum({callback: function(r){
+			if (!r) {
 				// user did not select anything
-			}
-			else if(r.url)
-			{
+			} else if(r.url) {
 				var image	= new Image();
 						
 				image.onload	= function(){
@@ -19,17 +16,14 @@ $(function(){
 				};
 				
 				image.src	= r.url;
-			}
-			else if(r.error)
-			{
+			} else if(r.error) {
 				console.log(r.error);
 			}
 		}});
 	});
 });
 
-window.fbAsyncInit	= function()
-{
+window.fbAsyncInit	= function () {
 	FB.init({appId: 128740590570428, status: true, cookie: true});
 };
 
