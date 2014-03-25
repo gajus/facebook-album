@@ -1,17 +1,14 @@
 /**
- * jQuery Facebook album (falbum) v0.0.3
- * https://github.com/gajus/falbum
- *
- * Licensed under the BSD.
- * https://github.com/gajus/facebook-album/blob/master/LICENSE
- *
- * Author: Gajus Kuizinas <g.kuizinas@anuary.com>
+ * jQuery Facebook album
+ * 
+ * @link https://github.com/gajus/falbum for the canonical source repository
+ * @license https://github.com/gajus/falbum/blob/master/LICENSE BSD 3-Clause
  */
 (function(){
     var console;
 
-    var template = $('<div class="gajus-falbum-overlay">\
-        <div class="gajus-falbum-widget">\
+    var template = $('<div id="gajus-falbum">\
+        <div class="widget">\
             <div class="body">\
                 <h1>Select a photo from your Facebook album(s)</h1>\
                 <ul class="albums"></ul>\
@@ -22,29 +19,25 @@
 
     var albums = [];
     
-    var populate_album_data = function(callback) {
+    var populate_album_data = function (callback) {
         FB.api({
             method: 'fql.multiquery',
             queries: {
                 query1: "SELECT object_id, name FROM album WHERE owner=me() AND type = 'normal';",
                 query2: "SELECT album_object_id, pid, src_small, src_big FROM photo WHERE album_object_id IN (SELECT object_id FROM #query1)"
             }
-        }, function(response){
-            albums  = response[0].fql_result_set;
+        }, function (response) {
+            albums = response[0].fql_result_set;
         
-            for(var i = 0, j = albums.length; i < j; i++)
-            {
+            for (var i = 0, j = albums.length; i < j; i++) {
                 albums[i].photos    = [];
             }
         
-            for(var i = 0, j = response[1].fql_result_set.length; i < j; i++)
-            {
-                var photo   = response[1].fql_result_set[i];
+            for (var i = 0, j = response[1].fql_result_set.length; i < j; i++) {
+                var photo = response[1].fql_result_set[i];
                 
-                for(var l = 0, k = albums.length; l < k; l++)
-                {
-                    if(albums[l].object_id == photo.album_object_id)
-                    {                       
+                for (var l = 0, k = albums.length; l < k; l++) {
+                    if (albums[l].object_id == photo.album_object_id) {                       
                         albums[l].photos.push(photo);
                     }
                 }
@@ -54,13 +47,10 @@
         });
     };
     
-    var scroll_top  = function(){
-        if(window != window.top && FB)
-        {
+    var scroll_top = function () {
+        if (window != window.top && FB) {
             FB.Canvas.scrollTo(0,0);
-        }
-        else
-        {
+        } else {
             window.scrollTo(0,0);
         }
     };
@@ -122,14 +112,12 @@
         
             scroll_top();
         
-            console.log('Populating the album list.');
+            console.debug('Populating the album list.');
             
-            for(var i = 0, j = albums.length; i < j; i++)
-            {
+            for (var i = 0, j = albums.length; i < j; i++) {
                 var li  = $('<li>').text(albums[i].name).data('object_id', albums[i].object_id);
                 
-                if(i === 0)
-                {
+                if (i === 0) {
                     populate_gallery(albums[i].object_id);
                 
                     li.addClass('active');
@@ -138,9 +126,8 @@
                 li.appendTo(widget.find('.albums'));
             }
             
-            widget.find('.albums').on('click', 'li', function(){
-                if($(this).hasClass('active'))
-                {
+            widget.find('.albums').on('click', 'li', function () {
+                if ($(this).hasClass('active')) {
                     return;
                 }
                 
@@ -151,90 +138,74 @@
                 $(this).addClass('active').siblings().removeClass('active');
             });
             
-            widget.find('.photos').on('click', 'li', function(){
+            widget.find('.photos').on('click', 'li', function () {
                 close_widget({url: $(this).data('src_url')});
             });
             
-            if(settings.loader)
-            {
+            if (settings.loader) {
                 settings.loader.hide();
             }
         };
         
-        var populate_gallery = function(object_id)
-        {
+        var populate_gallery = function (object_id) {
             var album;
             
             widget.find('.photos').empty();
             
-            for(var i = 0, j = albums.length; i < j; i++)
-            {
-                if(albums[i].object_id == object_id)
-                {
+            for (var i = 0, j = albums.length; i < j; i++) {
+                if (albums[i].object_id == object_id) {
                     album   = albums[i];
                     
                     break;
                 }
             }
             
-            if(!album)
-            {
+            if (!album) {
                 throw 'Album not found.';
             }
             
-            for(var i = 0, j = album.photos.length; i < j; i++)
-            {
+            for (var i = 0, j = album.photos.length; i < j; i++) {
                 var li = $('<li>').css({backgroundImage: 'url(\'' +  album.photos[i].src_small + '\')'}).data('src_url', album.photos[i].src_big);
                 
                 li.appendTo(widget.find('.photos'));
             }
         };
         
-        var close_widget = function(response){  
-            if(overlay)
-            {
+        var close_widget = function (response) {  
+            if (overlay) {
                 overlay.remove();
             }
             
-            if(close_event)
-            {
+            if (close_event) {
                 $(document).off('click', close_event);
             }
             
-            if(settings.loader)
-            {
+            if (settings.loader) {
                 settings.loader.hide();
             }
             
             settings.callback(response);
         };
         
-        var authenticate_user   = function(authentication_fallback){
-            console.log('Fetching user permissions.');
+        var authenticate_user = function (authentication_fallback) {
+            console.debug('Fetching user permissions.');
         
             FB.api('me/permissions', function(r){
-                if(!r.data || r.data[0].user_photos !== 1)
-                {
+                if (!r.data || r.data[0].user_photos !== 1) {
                     console.error('User is not authorised or has not provided the required permissions.');
                     
-                    if(authentication_fallback)
-                    {                   
+                    if (authentication_fallback) {                   
                         authentication_fallback();
-                    }
-                    else
-                    {
+                    } else {
                         close_widget();
                     }
                     
                     return;
-                }
-                else
-                {
-                    console.log('User is authorised.');
+                } else {
+                    console.debug('User is authorised.');
                 
-                    if(!albums.length)
-                    {
-                        console.log('Fetching information about the user albums and photos.');
+                    if (!albums.length) {
+                        console.debug('Fetching information about the user albums and photos.');
                     
                         populate_album_data(open_widget);
                     }
@@ -246,10 +217,9 @@
             });
         };
         
-        authenticate_user(function(){
-            FB.login(function(r)
-            {
-                console.log('User is asked to authorise the application with the required permissions.');
+        authenticate_user(function () {
+            FB.login(function (r) {
+                console.debug('User is asked to authorise the application with the required permissions.');
             
                 if(r.authResponse !== null)
                 {
@@ -258,4 +228,4 @@
             }, {scope: 'user_photos' })
         });     
     };
-})($);
+})();

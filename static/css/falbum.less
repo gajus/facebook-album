@@ -1,35 +1,18 @@
-body, html { padding: 0; margin: 0; font:normal 12px/20px monospace, 'Lucida Grande', arial, Sans-Serif; }
-
-.authorship { margin: 20px; }
-
-.button-upload-photo
-{
-	color: #f00; margin: 20px; cursor: pointer;
-	
-	&:hover { text-decoration: underline; }
-}
-
-#photo { display: none; margin: 20px; background: #f2f2f2; border: 1px solid #e2e2e2; }
-
-.ay-album-widget-overlay
-{
+#gajus-falbum {
 	position: absolute; z-index: 10; left: 0; top: 0; right: 0; bottom: 0; font: normal 12px/20px 'Lucida Grande', 'Arial';
 	
 	ul,
 	li { margin: 0; padding: 0; list-style: none; }
 	
-	.ay-album-widget
-	{
+	.widget {
 		width: 500px; margin: 10% auto 0; border: 10px solid rgba(0,0,0,.5);
 		
 		border-radius: 5px;
 		
-		.body
-		{
+		.body {
 			background: #fdfdfd; overflow: hidden; position: relative;
 			
-			.loader
-			{
+			.loader {
 				background: rgba(255,255,255,.8); position: absolute; left: 0; top: 0; right: 0; bottom: 0;
 				
 				.animation-loader { width: 28px; height: 28px; background: url('../images/animation-loader.gif'); position: absolute; left: 50%; top: 50%; margin-left: -14px; margin-top: -14px; }
@@ -37,30 +20,25 @@ body, html { padding: 0; margin: 0; font:normal 12px/20px monospace, 'Lucida Gra
 			
 			h1 { font-size: 12px; line-height: 12px; color: #222; padding: 10px; margin: 0 0 10px 0; background: #f2f2f2; border-bottom: 1px solid #e2e2e2; }
 			
-			.albums
-			{
+			.albums {
 				width: 150px; margin: 0 10px 10px 10px; float: left; overflow: hidden;
 				
-				li
-				{
+				li {
 					padding: 5px; border-bottom: 1px solid #E5E5E5; color: #3B5998;
 					
 					&.active { background: #f2f7fc; color: #000; }
 				}
 				
-				&:hover
-				{
+				&:hover {
 					li { outline: none; background: none; border-bottom: 1px solid #E5E5E5; color: #3B5998; }
 					li:hover { background: #f2f7fc; color: #000; cursor: pointer; }
 				}
 			}
 			
-			.photos
-			{
+			.photos {
 				width: 320px; overflow: hidden; margin: 0 10px 10px 0; float: left; max-height: 300px; overflow: hidden; overflow-y: scroll;
 				
-				li
-				{
+				li {
 					float: left; background: #ccc; width: 50px; height: 50px; margin: 0 10px 10px 0; cursor: pointer;
 					
 					&:nth-child(5n) { margin-right: 0; }
