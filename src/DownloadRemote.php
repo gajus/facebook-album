@@ -16,7 +16,7 @@ class DownloadRemote {
 	
 	public function getMimeType () {
 		if (!$this->temp_file) {
-			throw new DownloadRemoteException('File first needs to be downloaded.');
+			throw new FalbumException('File first needs to be downloaded.');
 		}
 	
 		$finfo = new \finfo(FILEINFO_MIME);
@@ -30,7 +30,7 @@ class DownloadRemote {
 	 */
 	public function download ($size_limit) {
 		if($this->temp_file) {
-			throw new DownloadRemoteException('Resource has been downloaded already.');
+			throw new FalbumException('Resource has been downloaded already.');
 		}
 	
 		$this->temp_file = tempnam(sys_get_temp_dir(), $this->temp_file_prefix);
