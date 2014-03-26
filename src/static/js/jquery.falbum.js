@@ -68,17 +68,13 @@
         var settings    = $.extend({
             callback: false,
             loader: false,
-            debug: false
+            debug: true
         }, options);
         
         if (!settings.callback) {
             throw 'Missing callback function.';
         } else if(settings.loader) {
             settings.loader.show();
-        }
-        
-        if (!settings.debug) {
-            console = {log: function(){}, error: function(){}, warn: function(){}, info: function(){}};
         }
         
         console.log('Initiating Facebook album sequence.');
